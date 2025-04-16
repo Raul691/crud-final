@@ -1,7 +1,9 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session
 import pymysql
 
+
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Adicione uma chave secreta para a sessão
 
 def conectar_bd():
     return pymysql.connect(
@@ -19,6 +21,11 @@ def index():
 def cadastrar():
     return render_template('cadastrar.html')  # Página de cadastro
 
+@app.route('/inicio')
+def inicio():
+    nome = session.get('nome')  # Obtém o nome da sessão
+    return render_template('inicio.html', nome=nome)  # Passa o nome para o template
+
 @app.route('/login', methods=['POST'])
 def login():
     registro = request.form['registro']
@@ -33,7 +40,8 @@ def login():
     conexao.close()
 
     if resultado:
-        return f"Acesso liberado para {resultado[1]}!"
+        session['nome'] = resultado[1]  # Armazena o nome do funcionário na sessão
+        return redirect('/inicio')  # Redireciona para a página inicial
     else:
         return "Acesso negado!"
 
