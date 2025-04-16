@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body{
+    background-image: url('images/car.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+.form {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(10px);
+    display: block;
+    padding: 1.5rem;
+    max-width: 350px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-title {
+    font-size: 2rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-container input,
+.form button {
+    outline: none;
+    border: 1px solid #620305;
+    margin: 1rem 0px 0px 0px;
+}
+
+
+.input-container input {
+    background-color: transparent;
+    padding: 1rem;
+    padding-right: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    width: 300px;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+
+.input-container input:focus {
+    border-bottom: 2px solid #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    color: #ffffff;
+}
+
+.submit {
+    display: block;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color:#620305;
+    color: #ffffff;
+    font-size: 1.1rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.signup-link {
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    margin: 1rem auto;
+    display: block;
+}
+
+.signup-link a {
+    text-decoration: underline;
+}
+

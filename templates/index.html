@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
+
 <body>
-    <h1>Login</h1>
-    <form action="/login" method="post">
-        <label for="registro">Registro:</label>
-        <input type="text" name="registro" id="registro" required><br><br>
 
-        <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" id="cargo" required><br><br>
-
-        <button type="submit">Entrar</button>
+    <form action="/login" method="post" class="form">
+        <div class="input-container">
+            <p class="form-title">Login</p>
+           
+            <input type="text" name="registro" id="registro" required
+                placeholder="Coloque o numero de registro">
+        </div>
+        <div class="input-container">
+            
+            <input type="text" name="cargo" id="cargo" placeholder="Digite seu cargo" required>
+        </div>
+        <button type="submit" class="submit">Entrar</button>
+        <a href="/cadastrar" class="signup-link">Cadastrar novo funcionário</a>
     </form>
 
-    <br>
-    <a href="/cadastrar">Cadastrar novo funcionário</a>
 </body>
+
 </html>
