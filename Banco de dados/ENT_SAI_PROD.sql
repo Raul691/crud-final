@@ -1,27 +1,28 @@
-CREATE TABLE funcionarios(
-Registro INT PRIMARY KEY,
-Nome VARCHAR(100),
-Cargo VARCHAR(100),
-Data_admissao date
+CREATE TABLE ENT_SAI_PROD (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Qnt_entrada INT,
+    Qnt_saida INT
 );
-select*from funcionarios;
 
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
-(0123, 'SAMUEL FERREIRA RIBEIBO', 'GERENTE', 20200215);
-
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
-(1234, 'RAUL RODRIGUES JUSTO', 'VENDEDOR', 20200416);
-
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
-(2345, 'MURILLO VIANA COELHO', 'VENDEDOR', 20220714);
-
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
-(3456, 'VITOR VIANA DE JESUS', 'VENDEDOR', 20211202);
-
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
-(4567, 'JULIA DOS SANTOS MATIAS', 'VENDEDOR', 20210510);
+INSERT INTO ENT_SAI_PROD (Nome, Qnt_entrada, Qnt_saida) VALUES
+('Diablo Rosso IV 120/70 ZR17', 50, 13),
+('Power GP 190/50 ZR17', 60, 15),
+('Power GP 120/70 ZR17', 40, 34),
+('Qualifier II 120/70 ZR17', 70, 23),
+('Qualifier II 180/55 ZR17', 80, 34),
+('Road 5 120/70 ZR17', 90, 76),
+('Diablo Rosso IV 190/55 ZR17', 20, 1),
+('Road 5 160/60 ZR17', 30, 12),
+('GP Racer D212 190/55 ZR17', 70, 13),
+('SportSmart TT 190/50 ZR17', 40, 27),
+('Diablo Supercorsa 120/70 ZR17', 90, 67),
+('Diablo Supercorsa 180/55 ZR17', 90, 34),
+('GP Racer D212 190/55 ZR17', 20, 12),
+('SportSmart TT 180/55 ZR17', 70, 54),
+('Diablo Rosso IV 190/55 ZR17', 90, 65),
+('GP Racer D212 190/55 ZR17', 60, 45),
+('Power GP 180/55 ZR17', 20, 8),
+('Road 5 190/50 ZR17', 80, 28),
+('Angel GT 120/70 ZR17', 70, 32),
+('GP Racer D212 190/55 ZR17', 10, 3);

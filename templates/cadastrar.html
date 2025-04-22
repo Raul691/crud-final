@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Funcionário</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
-<body>
-    <h1>Cadastrar novo funcionário</h1>
-    <form action="/cadastrar-funcionario" method="post">
-        <label for="reg">Registro:</label>
-        <input type="text" name="reg" id="reg"><br><br>
+<body class="cadastro-body">
+    <form action="/cadastrar-funcionario" method="post" class="form">
+   <div class="input-container">
+        <p class="form-title">Cadastro</p>
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome"><br><br>
+        <input type="text" name="registro" id="registro" required
+            placeholder="Coloque o número de registro"> 
+   </div>
 
-        <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" id="cargo"><br><br>
+        <div class="input-container">
+            <input type="text" name="nome" id="nome" required
+                placeholder="Coloque o nome"> 
+        </div>
 
-        <label for="data">Data de admissão:</label>
-        <input type="date" name="data" id="data"><br><br>
+        <div class="input-container">
+            <input type="text" name="cargo" id="cargo" required
+                placeholder="Coloque o cargo"> 
+        </div>
 
-        <button type="submit">Cadastrar</button>
+        <div class="input-container">
+            <input type="date" name="data" id="data" required> 
+        </div>
+        <button type="submit" class="submit">Cadastrar</button>
+        <a href="/" class="signup-link">Clique aqui para voltar ao Login</a>
     </form>
-
-    <br>
-    <a href="/">Clique aqui para voltar ao Login</a>
 </body>
 </html>

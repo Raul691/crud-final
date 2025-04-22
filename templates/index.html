@@ -1,29 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../static/style.css">
-</head>
-
-<body>
-
-    <form action="/login" method="post" class="form">
-        <div class="input-container">
-            <p class="form-title">Login</p>
-           
-            <input type="text" name="registro" id="registro" required
-                placeholder="Coloque o numero de registro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="../static/images/icon_pneu.jpg">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <title>ROAD KING</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav__header">
+          <div class="nav__logo">
+            <a href="#"><a href="">ROAD KING</a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+          </div>
         </div>
-        <div class="input-container">
-            
-            <input type="text" name="cargo" id="cargo" placeholder="Digite seu cargo" required>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#Inicio">INICIO</a></li>
+          <li><a href="#sobre">SOBRE</a></li>
+          <li><a href="#estoque">ESTOQUE</a></li>
+        </ul>
+        <div class="nav__btns">
         </div>
-        <button type="submit" class="submit">Entrar</button>
-        <a href="/cadastrar" class="signup-link">Cadastrar novo funcionário</a>
-    </form>
+      </nav>
 
-</body>
+      <div class="section__container header__container">
+        <h1>Bem Vindo,{{ nome }} Aqui Você Encontra os Melhores Pneus</h1>
+        <h1>Aqui Você Encontra os melhores Pneus</h1>
+        <p class="section__description">
+          Sua jornada merece pneus à altura. Conforto, aderência e confiança em cada curva..
+        </p>
+        <div class="header__link">
+        </div>
+        <img src="../static/images/header.png" alt="header" />
+      </div>
+    </header>
 
+    <section class="shop">
+      <div class="section__container shop__container">
+        <div class="shop__card">
+          <p>PNEU</p>
+          <h4>SEMI SLICK | POWER CUP 2</h4>
+          <img src="../static/images/pouco-removebg-preview.png" alt="shop" />
+          <div>
+            <a href="#">
+              <span><i class="ri-arrow-right-long-line"></i></span>
+              Learn More
+            </a>
+            <span>Exclusive</span>
+          </div>
+        </div>
+        <div class="shop__card">
+          <p>PNEU</p>
+          <h4>ROAD | POWER GP2</h4>
+          <img src="../static/images/listrada-removebg-preview.png" alt="shop" />
+          <div>
+            <a href="#">
+              <span><i class="ri-arrow-right-long-line"></i></span>
+              Learn More
+            </a>
+            <span>Exclusive</span>
+          </div>
+        </div>
+        <div class="shop__card">
+          <p>PNEU</p>
+          <h4>SLICK | POWER SLICK 2</h4>
+          <img src="../static/images/image-removebg-preview (1).png" alt="shop" />
+          <div>
+            <a href="#">
+              <span><i class="ri-arrow-right-long-line"></i></span>
+              Learn More
+            </a>
+            <span>Exclusive</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <h4>SOBRE</h4>
+          <p class="section__description">
+            Qualidade e segurança em cada pneu. Nossa missão é proporcionar 
+            a melhor experiência em performance e durabilidade para sua moto.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>SERVIÇOS</h4>
+          <ul class="footer__links">
+            <li><a href="#">Montagem</a></li>
+            <li><a href="#">Balanceamento</a></li>
+            <li><a href="#">Alinhamento</a></li>
+            <li><a href="#">Consultoria</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>CONTATO</h4>
+          <ul class="footer__links">
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Localização</a></li>
+            <li><a href="#">Política de Privacidade</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>

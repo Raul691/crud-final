@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, redirect, session
+
 import pymysql
 
 
@@ -15,16 +16,11 @@ def conectar_bd():
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Página de login
+    return render_template('login.html')  # Página de login
 
 @app.route('/cadastrar')
 def cadastrar():
     return render_template('cadastrar.html')  # Página de cadastro
-
-@app.route('/inicio')
-def inicio():
-    nome = session.get('nome')  # Obtém o nome da sessão
-    return render_template('inicio.html', nome=nome)  # Passa o nome para o template
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -41,13 +37,13 @@ def login():
 
     if resultado:
         session['nome'] = resultado[1]  # Armazena o nome do funcionário na sessão
-        return redirect('/inicio')  # Redireciona para a página inicial
+        return redirect('/index')  # Redireciona para a página inicial
     else:
         return "Acesso negado!"
 
 @app.route('/cadastrar-funcionario', methods=['POST'])
 def cadastrar_funcionario():
-    reg = request.form['reg']
+    registro = request.form['registro']
     nome = request.form['nome']
     cargo = request.form['cargo']
     data = request.form['data']
@@ -58,12 +54,19 @@ def cadastrar_funcionario():
     INSERT INTO FUNCIONARIOS (Registro, Nome, Cargo, Data_admissao)
     VALUES (%s, %s, %s, %s)
     '''
-    cursor.execute(comando, (reg, nome, cargo, data))
+    cursor.execute(comando, (registro, nome, cargo, data))
     conexao.commit()
     cursor.close()
     conexao.close()
+    session['nome'] = nome
+    return redirect('/index')  
 
-    return f"Funcionário {nome} cadastrado com sucesso!"
+@app.route('/index')
+def index_page():
+    if 'nome' not in session:  # Verifica se o usuário está logado
+        return redirect('/')  # Redireciona para a página de login
+    nome = session['nome']  # Obtém o nome do usuário da sessão
+    return render_template('index.html', nome=nome)
 
 if __name__ == '__main__':
     app.run(debug=True)

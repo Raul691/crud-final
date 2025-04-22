@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <form action="/login" method="post" class="form">
+        <div class="input-container">
+            <p class="form-title">Login</p>
+           
+            <input type="text" name="registro" id="registro" required
+                placeholder="Coloque o numero de registro">
+        </div>
+        <div class="input-container">
+            
+            <input type="text" name="cargo" id="cargo" placeholder="Digite seu cargo" required>
+        </div>
+        <button type="submit" class="submit">Entrar</button>
+        <a href="/cadastrar" class="signup-link">Cadastrar novo funcionário</a>
+    </form>
+
+</body>
+
+</html>
