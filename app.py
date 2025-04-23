@@ -1,10 +1,9 @@
-from flask import Flask, request, render_template, redirect, session
-
+from flask import Flask, request, render_template, redirect, session, url_for
 import pymysql
 
-
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Adicione uma chave secreta para a sessão
+app.secret_key = 'sua_chave_secreta_aqui'
+
 
 def conectar_bd():
     return pymysql.connect(
@@ -39,7 +38,11 @@ def login():
         session['nome'] = resultado[1]  # Armazena o nome do funcionário na sessão
         return redirect('/index')  # Redireciona para a página inicial
     else:
-        return "Acesso negado!"
+        return redirect(url_for('acesso_negado'))
+
+@app.route('/acesso-negado')
+def acesso_negado():
+    return render_template('acesso_negado.html')  # Página de acesso negado
 
 @app.route('/cadastrar-funcionario', methods=['POST'])
 def cadastrar_funcionario():
