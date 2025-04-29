@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon_pneu.jpg">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Estoque</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav__header">
+                <div class="nav__logo">
+                    <a href="/index"><img src="../static/images/logo-moto.png" alt="logo-moto" class="logo"></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links">
+                <li><a href="/index#Inicio">INICIO</a></li>
+                <li><a href="/index#sobre">SOBRE</a></li>
+                <li><a href="/estoque">ESTOQUE</a></li>
+            </ul>
+            <div class="nav__btns">
+            </div>
+        </nav>
+    </header>
+
+    <div class="section__container estoque__container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Medida</th>
+                    <th>Tipo</th>
+                    <th>Qtd. Atual</th>
+                    <th>Qtd. Mínima</th>
+                    <th>Qtd. Repor</th>
+                    <th>Valor Custo</th>
+                    <th>Valor Venda</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <script>
+                    function confirmarExclusao(id) {
+                        if (confirm("Tem certeza que deseja excluir este produto?")) {
+                            window.location.href = "/excluir_produto/" + id;
+                        }
+                    }
+                </script>
+                <tr>
+                    <td>{{ produto[0] }}</td>
+                    <td>{{ produto[1] }}</td>
+                    <td>{{ produto[2] }}</td>
+                    <td>{{ produto[3] }}</td>
+                    <td>{{ produto[4] }}</td>
+                    <td>{{ produto[5] }}</td>
+                    <td>{{ produto[6] }}</td>
+                    <td>{{ produto[7] }}</td>
+                    <td>{{ produto[8] }}</td>
+                    <td>{{ produto[9] }}</td>
+                    <td>{{ produto[10] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_produto', id_produto=produto[0]) }}">Editar</a> 
+                        <a href="#" onclick="confirmarExclusao({{ produto[0] }})">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <div class="section__container estoque__container">
+                <h1>Estoque de Produtos</h1>
+                <a href="{{ url_for('adicionar_produto') }}" class="button-adicionar">Adicionar Novo Produto</a>
+                {% if mensagem %}
+                <div class="mensagem-sucesso">
+                    {{ mensagem }}
+                </div>
+                {% endif %}
+        </table>
+    </div>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../static/main.js"></script>
+</body>
+</html>

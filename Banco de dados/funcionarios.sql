@@ -1,6 +1,6 @@
 CREATE TABLE funcionarios(
 Registro INT PRIMARY KEY,
-Nome VARCHAR(100),
+Nome VARCHAR(100),''
 Cargo VARCHAR(100),
 Data_admissao date
 );
