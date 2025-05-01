@@ -55,3 +55,9 @@ const swiper = new Swiper(".swiper", {
   slidesPerView: "auto",
   spaceBetween: 20,
 });
+
+function confirmarExclusao(idProduto) {
+  if (confirm("Tem certeza que deseja excluir este produto?")) {
+      window.location.href = `/excluir_produto/${idProduto}`;
+  }
+}

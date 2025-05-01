@@ -189,5 +189,23 @@ def salvar_produto():
         session['mensagem'] = 'Produto adicionado com sucesso!'
         return redirect('/estoque')
     
+@app.route('/pesquisar_estoque', methods=['GET'])
+def pesquisar_estoque():
+    if 'nome' not in session:
+        return redirect('/')
+    termo_pesquisa = request.args.get('termo_pesquisa')
+    conexao = conectar_bd()
+    cursor = conexao.cursor()
+    comando = """
+    SELECT * FROM PRODUTOS
+    WHERE Nome LIKE %s OR Marca LIKE %s OR Modelo LIKE %s
+    """
+    termo_like = f"%{termo_pesquisa}%"
+    cursor.execute(comando, (termo_like, termo_like, termo_like))
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('estoque.html', produtos=resultados)
+    
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,10 +2,10 @@
 
 :root {
   --primary-color: #f0a13a;
-  --background-color:rgb(0, 0, 0);
-  --header-background-color:rgb(0, 0, 0);
+  --background-color: rgb(0, 0, 0);
+  --header-background-color: rgb(0, 0, 0);
   --text-light: #767268;
-  --white:rgba(255, 255, 255, 0.9);
+  --white: rgba(255, 255, 255, 0.9);
   --max-width: 1200px;
   --header-font: "Roboto Condensed", sans-serif;
 }
@@ -21,12 +21,12 @@ img {
   width: 100%;
 }
 
-.logo{
+.logo {
   margin-top: -8rem;
   max-width: 150px;
   position: absolute;
   top: 6rem;
-  left: 9rem;  
+  left: 9rem;
 }
 
 a {
@@ -663,55 +663,144 @@ nav {
     padding: 2rem;
   }
 
- /* Estilo para a página de estoque */
+  /* Estilo para a página de estoque */
 
   body {
     font-family: "Roboto", sans-serif;
     background-color: var(--background-color); /* Mantém o fundo preto padrão */
     color: var(--white); /* Adiciona cor branca para o texto padrão */
-}
+  }
 
-header {
+  header {
     background-color: var(--header-background-color);
-}
+  }
 
-.estoque__container {
-    background-color: var(--white); /* Define o fundo do container de estoque como branco */
-    color: var(--background-color); /* Define a cor do texto dentro do container como preto */
+  .estoque__container {
+    background-color: var(
+      --white
+    ); /* Define o fundo do container de estoque como branco */
+    color: var(
+      --background-color
+    ); /* Define a cor do texto dentro do container como preto */
     padding: 2rem; /* Adicione algum padding para o conteúdo não ficar grudado nas bordas */
     border-radius: 8px; /* Opcional: para dar bordas arredondadas */
     margin-top: 2rem; /* Opcional: para dar espaço do cabeçalho */
-}
+  }
 
-.estoque__container h1,
-.estoque__container table th,
-.estoque__container table td,
-.estoque__container a {
-    color: var(--background-color); /* Garante que os elementos dentro do container tenham cor preta */
-}
-
-.estoque__container a:hover {
+  .estoque__container h1,
+  .estoque__container table th,
+  .estoque__container table td,
+  .estoque__container a {
+    color: var(
+      --background-color
+    ); /* Garante que os elementos dentro do container tenham cor preta */
+  }
+ 
+  .estoque__container a:hover {
     color: var(--primary-color); /* Mantém o hover laranja nos links */
-}
+  }
 
-.estoque__container table {
+  .estoque__container table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-}
+  }
 
-.estoque__container table th,
-.estoque__container table td {
+  .estoque__container table th,
+  .estoque__container table td {
     padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
-    text-align: left; 
-}
+    border-bottom: 1px solid rgba(0, 0, 0, 0.81);
+    text-align: left;
+  }
 
-.estoque__container table th {
+  .estoque__container table th {
     background-color: #f2f2f2;
+  }
+
+  .estoque__container table tr:hover {
+    background-color: #f9f9f9;
+  }
+
+/* Estilos existentes podem estar aqui */
+
+.estoque__header {
+  display: flex;
+  flex-direction: column; /* Inicialmente empilha verticalmente em telas menores */
+  gap: 15px; /* Espaçamento entre o título e as ações */
+  margin-bottom: 20px;
+  align-items: flex-start; /* Alinha os itens à esquerda por padrão */
 }
 
-.estoque__container table tr:hover {
-    background-color: #f9f9f9;
+.estoque__actions {
+  display: flex;
+  gap: 10px; /* Espaçamento entre a barra de pesquisa e o botão */
+  align-items: center; /* Alinha verticalmente a barra de pesquisa e o botão */
 }
+
+/* Estilos para a nova barra de pesquisa */
+.InputContainer {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  padding-left: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.input {
+  width: 170px; /* Mantendo a largura */
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9em;
+}
+
+.labelforsearch {
+  cursor: text;
+  padding: 0px 12px;
+}
+
+.searchIcon {
+  width: 13px;
+}
+
+.border {
+  height: 40%;
+  width: 1.3px;
+  background-color: rgb(223, 223, 223);
+}
+
+.searchIcon path {
+  fill: rgb(114, 114, 114);
+}
+
+.button-adicionar {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color:rgb(255, 255, 255); /* Nova cor de fundo: preto */
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid rgb(0, 0, 0); /* Opcional: Adiciona uma borda laranja para destacar */
+}
+
+.button-adicionar:hover {
+  background-color:rgb(0, 0, 0); /* Cor de fundo ao passar o mouse (um tom mais escuro de preto) */
+  color: #ff8c00; /* Cor do texto ao passar o mouse (branco) - você pode ajustar isso também */
+}
+
+/* Media query para telas maiores para alinhar horizontalmente */
+@media (min-width: 768px) {
+  .estoque__header {
+      flex-direction: row; /* Alinha título e ações horizontalmente */
+      justify-content: space-between; /* Espaça o título e as ações */
+      align-items: center;
+  }
+
+  .estoque__actions {
+      align-items: center; /* Garante o alinhamento vertical */
+  }
 }
