@@ -497,6 +497,193 @@ nav {
   color: var(--white);
 }
 
+
+
+
+
+/* Modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: rgba(140, 140, 140, 0.34);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(10px);
+  margin: 2rem auto;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  width: 95%;
+  max-width: 650px;
+  position: relative;
+  border: 1px solid rgba(255, 7, 7, 0.03);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .modal-content {
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}
+
+.modal-content form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .modal-content form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Campos que ocupam uma coluna */
+.modal-content form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Campos que ocupam duas colunas */
+.modal-content form > div.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 480px) {
+  .form-buttons {
+    flex-direction: row;
+    margin-top: 1.5rem;
+    gap: 1rem;
+  }
+}
+
+.modal-content input {
+  background-color: transparent;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  color: var(--white);
+  transition: all 0.3s;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+  padding-right: 2rem;
+}
+
+@media (min-width: 640px) {
+  .form-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.modal-content label {
+  color: var(--white);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.modal-content button[type="submit"] {
+  flex: 1;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.cancel-button {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 2rem;
+  color: var(--white) !important;
+  background: transparent;
+  border: 2px solid var(--white);
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.cancel-button:hover {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color);
+}
+
+.close-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 0.5rem;
+}
+
+.close-button:hover {
+  color: var(--primary-color);
+}
+
+.close-button i {
+  color: var(--white);
+}
+
+.close-button:hover i {
+  color: var(--primary-color);
+}
+
 @media (width > 540px) {
   .shop__container {
     grid-template-columns: repeat(2, 1fr);
@@ -803,4 +990,89 @@ nav {
   .estoque__actions {
       align-items: center; /* Garante o alinhamento vertical */
   }
+}
+
+.cancel-button {
+    text-align: center;
+    padding: 0.75rem 2rem;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.cancel-button:hover {
+    color: var(--white) !important;
+    border: 2px solid var(--white);
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--primary-color);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 480px) {
+  .modal-content button[type="submit"],
+  .cancel-button {
+    width: 100%;
+  }
+  
+  .close-button {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* Estilização da barra de rolagem para o modal */
+.modal-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+
+/* Estilização para Firefox */
+.modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+/* Estilização da barra de rolagem para o body quando o modal está aberto */
+body.modal-open {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) rgba(255, 255, 255, 0.1);
+}
+
+body.modal-open::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.modal-open::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+body.modal-open::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+body.modal-open::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
 }
