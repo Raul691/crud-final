@@ -607,7 +607,8 @@ nav {
   margin-bottom: 1.25rem;
   padding-top: 0.5rem;
   padding-right: 2rem;
-}
+  cursosr: pointer;
+}  
 
 @media (min-width: 640px) {
   .form-title {

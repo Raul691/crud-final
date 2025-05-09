@@ -25,6 +25,7 @@
                 <li><a href="/index#Inicio">INICIO</a></li>
                 <li><a href="/index#sobre">SOBRE</a></li>
                 <li><a href="/estoque">ESTOQUE</a></li>
+                <li><a href="/movimentacao">HISTÓRICO</a></li>
             </ul>
             <div class="nav__btns">
             </div>
@@ -146,14 +147,14 @@
                     <td>{{ produto[9] }}</td>
                     <td>{{ produto[10] }}</td>
                     <td>
-                        <a onclick="openModalEdit()">Editar</a>
+                        <a onclick="openModalEdit('modalEditar_{{ produto[0] }}')">Editar</a>
                         <a href="#" onclick="confirmarExclusao({{ produto[0] }})">Excluir</a>
                     </td>
                 </tr>
-                <div id="iframeModalEdit" class="modal">
+                <div id="modalEditar_{{ produto[0] }}" class="modal">
                     <div class="modal-content">
-                        <button onclick="closeModalEdit()" class="close-button"><i class="fas fa-times"></i></button>
-                        <p class="form-title">Editar Produto</p>                
+                        <button onclick="closeModalEdit('modalEditar_{{ produto[0] }}')" class="close-button"><i class="fas fa-times"></i></button>
+                        <p class="form-title">Editar Produto</p>
                         <form action="{{ url_for('atualizar_produto', id_produto=produto[0]) }}" method="POST">
                             <div>
                                 <label for="nome">Nome:</label>
@@ -222,6 +223,15 @@
         function closeModalEdit() {
             document.getElementById("iframeModalEdit").style.display = "none";
         }
+
+        function openModalEdit(modalId) {
+    document.getElementById(modalId).style.display = "flex";
+        }
+
+function closeModalEdit(modalId) {
+    document.getElementById(modalId).style.display = "none";
+        }
+
     </script>
 </body>
 

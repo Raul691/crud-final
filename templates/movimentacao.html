@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/images/icon_pneu.jpg">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Histórico de Movimentações</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav__header">
+                <div class="nav__logo">
+                    <a href="/index"><img src="../static/images/logo-moto.png" alt="logo-moto" class="logo"></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links">
+                <li><a href="/index#Inicio">INICIO</a></li>
+                <li><a href="/index#sobre">SOBRE</a></li>
+                <li><a href="/estoque">ESTOQUE</a></li>
+                <li><a href="/movimentacao">HISTÓRICO</a></li>
+            </ul>
+            <div class="nav__btns">
+            </div>
+        </nav>
+    </header>
+
+    <div class="section__container estoque__container">
+        <div class="estoque__header">
+            <h1>Histórico de Movimentações de Produtos</h1>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Movimento</th>
+                    <th>ID Produto</th>
+                    <th>Nome Produto</th>
+                    <th>Tipo Movimento</th>
+                    <th>Data Movimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movimentacao in movimentacoes %}
+                <tr>
+                    <td>{{ movimentacao[0] }}</td>
+                    <td>{{ movimentacao[1] }}</td>
+                    <td>{{ movimentacao[2] }}</td>
+                    <td>{{ movimentacao[3] }}</td>
+                    <td>{{ movimentacao[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../static/main.js"></script>
+</body>
+
+</html>

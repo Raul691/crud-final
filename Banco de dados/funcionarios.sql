@@ -16,10 +16,6 @@ VALUES
 
 INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
 VALUES
-(2345, 'MURILLO VIANA COELHO', 'VENDEDOR', 20220714);
-
-INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)
-VALUES
 (3456, 'VITOR VIANA DE JESUS', 'VENDEDOR', 20211202);
 
 INSERT INTO funcionarios (Registro,Nome, Cargo,Data_admissao)

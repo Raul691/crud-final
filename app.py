@@ -13,6 +13,23 @@ def conectar_bd():
         database='bancodedadosatualizado',
     )
 
+def registrar_movimento(id_produto, nome_produto, tipo_movimento):
+    conexao = conectar_bd()
+    cursor = conexao.cursor()
+    comando = """
+    INSERT INTO movimentacoes (id_produto, nome_produto, tipo_movimento, data_movimento)
+    VALUES (%s, %s, %s, NOW())
+    """
+    try:
+        cursor.execute(comando, (id_produto, nome_produto, tipo_movimento))
+        conexao.commit()
+    except pymysql.Error as e:
+        print(f"Erro ao registrar movimentação: {e}")
+        conexao.rollback()
+    finally:
+        cursor.close()
+        conexao.close()
+
 @app.route('/')
 def index():
     return render_template('login.html')  # Página de login
@@ -62,7 +79,7 @@ def cadastrar_funcionario():
     cursor.close()
     conexao.close()
     session['nome'] = nome
-    return redirect('/index')  
+    return redirect('/index')
 
 @app.route('/index')
 def index_page():
@@ -75,7 +92,7 @@ def index_page():
 @app.route('/estoque')
 def estoque():
     if 'nome' not in session:
-           return redirect('/')
+        return redirect('/')
     conexao = conectar_bd()
     cursor = conexao.cursor()
     cursor.execute("SELECT * FROM PRODUTOS")
@@ -134,8 +151,14 @@ def excluir_produto(id_produto):
         return redirect('/')
     conexao = conectar_bd()
     cursor = conexao.cursor()
-    cursor.execute("DELETE FROM PRODUTOS WHERE id_produto=%s", (id_produto,))
-    conexao.commit()
+    # Primeiro, pegue o nome do produto antes de excluí-lo para registrar na movimentação
+    cursor.execute("SELECT Nome FROM PRODUTOS WHERE id_produto=%s", (id_produto,))
+    produto_excluido = cursor.fetchone()
+    if produto_excluido:
+        nome_produto_excluido = produto_excluido[0]
+        cursor.execute("DELETE FROM PRODUTOS WHERE id_produto=%s", (id_produto,))
+        registrar_movimento(id_produto, nome_produto_excluido, 'Saída')
+        conexao.commit()
     cursor.close()
     conexao.close()
     return redirect('/estoque')
@@ -166,7 +189,7 @@ def salvar_produto():
     cursor = conexao.cursor()
 
     # Verifica se já existe um produto com o mesmo ID
-    cursor.execute("SELECT id_produto FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
+    cursor.execute("SELECT id_produto, Nome FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
     resultado = cursor.fetchone()
 
     if resultado:
@@ -183,12 +206,13 @@ def salvar_produto():
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
         cursor.execute(comando, (id_produto, nome, marca, modelo, medida, tipo, qnt_atual, qnt_min, qnt_repor, valor_custo, valor_venda))
+        registrar_movimento(id_produto, nome, 'Entrada')
         conexao.commit()
         cursor.close()
         conexao.close()
         session['mensagem'] = 'Produto adicionado com sucesso!'
         return redirect('/estoque')
-    
+
 @app.route('/pesquisar_estoque', methods=['GET'])
 def pesquisar_estoque():
     if 'nome' not in session:
@@ -198,14 +222,26 @@ def pesquisar_estoque():
     cursor = conexao.cursor()
     comando = """
     SELECT * FROM PRODUTOS
-    WHERE Nome LIKE %s OR Marca LIKE %s OR Modelo LIKE %s
+    WHERE Nome LIKE %s OR Marca LIKE %s OR Modelo LIKE %s OR Tipo LIKE %s
     """
     termo_like = f"%{termo_pesquisa}%"
-    cursor.execute(comando, (termo_like, termo_like, termo_like))
+    cursor.execute(comando, (termo_like, termo_like, termo_like, termo_like))
     resultados = cursor.fetchall()
     cursor.close()
     conexao.close()
     return render_template('estoque.html', produtos=resultados)
-    
+
+@app.route('/historico_movimentacoes')
+def historico_movimentacoes():
+    if 'nome' not in session:
+        return redirect('/')
+    conexao = conectar_bd()
+    cursor = conexao.cursor()
+    cursor.execute("SELECT * FROM movimentacoes ORDER BY data_movimento DESC")
+    movimentacoes = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('historico_movimentacoes.html', movimentacoes=movimentacoes)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+ app.run(debug=True)
