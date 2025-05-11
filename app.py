@@ -13,13 +13,13 @@ def conectar_bd():
         database='bancodedadosatualizado',
     )
 
-def registrar_movimento(cursor, id_produto, nome_produto, tipo_movimento):
+def registrar_movimento(cursor, id_produto, nome_produto, tipo_movimento, qnt_atual):
     comando = """
-    INSERT INTO movimentacoes (id_produto, nome_produto, tipo_movimento, data_movimento)
-    VALUES (%s, %s, %s, NOW())
+    INSERT INTO movimentacoes (id_produto, nome_produto, tipo_movimento, qnt_atual, data_movimento)
+    VALUES (%s, %s, %s, %s, NOW())
     """
-    cursor.execute(comando, (id_produto, nome_produto, tipo_movimento))
-
+    cursor.execute(comando, (id_produto, nome_produto, tipo_movimento, qnt_atual))
+    
 @app.route('/')
 def index():
     return render_template('login.html')  # Página de login
@@ -104,7 +104,7 @@ def editar_produto(id_produto):
     if produto:
         return render_template('editar_produto.html', produto=produto)
     else:
-        return "Produto não encontrado." # Ou uma página de erro
+        return "Produto não encontrado." # Ou uma pagina de erro
 
 @app.route('/atualizar_produto/<int:id_produto>', methods=['POST'])
 def atualizar_produto(id_produto):
@@ -143,12 +143,17 @@ def excluir_produto(id_produto):
     with conectar_bd() as conexao:
         cursor = conexao.cursor()
 
-        cursor.execute("SELECT Nome FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
+        # Buscar nome e quantidade atual do produto
+        cursor.execute("SELECT Nome, Qnt_atual FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
         produto = cursor.fetchone()
+
         if produto:
             nome_produto = produto[0]
-            registrar_movimento(cursor, id_produto, nome_produto, 'Saída')
+            qnt_atual = produto[1]
+            # Agora chamando corretamente a funcao com os 5 argumentos
+            registrar_movimento(cursor, id_produto, nome_produto, 'Saída', qnt_atual)
             cursor.execute("DELETE FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
+
         conexao.commit()
 
     return redirect('/estoque')
@@ -196,7 +201,7 @@ def salvar_produto():
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
         cursor.execute(comando, (id_produto, nome, marca, modelo, medida, tipo, qnt_atual, qnt_min, qnt_repor, valor_custo, valor_venda))
-        registrar_movimento(cursor, id_produto, nome, 'Entrada')
+        registrar_movimento(cursor, id_produto, nome, 'Entrada', qnt_atual)
         conexao.commit()
         cursor.close()
         conexao.close()

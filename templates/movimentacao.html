@@ -54,16 +54,25 @@
             <th>Nome Produto</th>
             <th>Tipo Movimento</th>
             <th>Data Movimento</th>
+            <!-- ADICIONADO -->
+            <th>Qtd Atual</th>
           </tr>
         </thead>
         <tbody>
           {% for item in movimentacao %}
           <tr>
             <td>{{ item[0] }}</td>
+            <!-- id_movimento -->
             <td>{{ item[1] }}</td>
+            <!-- id_produto -->
             <td>{{ item[2] }}</td>
+            <!-- nome_produto -->
             <td>{{ item[3] }}</td>
+            <!-- tipo_movimento -->
             <td>{{ item[4] }}</td>
+            <!-- qnt_atual -->
+            <td>{{ item[5]}}</td>
+            <!-- data_movimento -->
           </tr>
           {% endfor %}
         </tbody>
