@@ -32,6 +32,7 @@ img {
 a {
   text-decoration: none;
   transition: 0.3s;
+  cursor: pointer
 }
 
 ul {
@@ -973,6 +974,11 @@ nav {
   text-decoration: none;
   border-radius: 4px;
   border: 1px solid rgb(0, 0, 0); /* Opcional: Adiciona uma borda laranja para destacar */
+  cursor: pointer;
+}
+
+.button-editar{
+  cursor: pointer;
 }
 
 .button-adicionar:hover {

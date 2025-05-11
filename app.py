@@ -13,22 +13,12 @@ def conectar_bd():
         database='bancodedadosatualizado',
     )
 
-def registrar_movimento(id_produto, nome_produto, tipo_movimento):
-    conexao = conectar_bd()
-    cursor = conexao.cursor()
+def registrar_movimento(cursor, id_produto, nome_produto, tipo_movimento):
     comando = """
     INSERT INTO movimentacoes (id_produto, nome_produto, tipo_movimento, data_movimento)
     VALUES (%s, %s, %s, NOW())
     """
-    try:
-        cursor.execute(comando, (id_produto, nome_produto, tipo_movimento))
-        conexao.commit()
-    except pymysql.Error as e:
-        print(f"Erro ao registrar movimentação: {e}")
-        conexao.rollback()
-    finally:
-        cursor.close()
-        conexao.close()
+    cursor.execute(comando, (id_produto, nome_produto, tipo_movimento))
 
 @app.route('/')
 def index():
@@ -149,18 +139,18 @@ def atualizar_produto(id_produto):
 def excluir_produto(id_produto):
     if 'nome' not in session:
         return redirect('/')
-    conexao = conectar_bd()
-    cursor = conexao.cursor()
-    # Primeiro, pegue o nome do produto antes de excluí-lo para registrar na movimentação
-    cursor.execute("SELECT Nome FROM PRODUTOS WHERE id_produto=%s", (id_produto,))
-    produto_excluido = cursor.fetchone()
-    if produto_excluido:
-        nome_produto_excluido = produto_excluido[0]
-        cursor.execute("DELETE FROM PRODUTOS WHERE id_produto=%s", (id_produto,))
-        registrar_movimento(id_produto, nome_produto_excluido, 'Saída')
+
+    with conectar_bd() as conexao:
+        cursor = conexao.cursor()
+
+        cursor.execute("SELECT Nome FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
+        produto = cursor.fetchone()
+        if produto:
+            nome_produto = produto[0]
+            registrar_movimento(cursor, id_produto, nome_produto, 'Saída')
+            cursor.execute("DELETE FROM PRODUTOS WHERE id_produto = %s", (id_produto,))
         conexao.commit()
-    cursor.close()
-    conexao.close()
+
     return redirect('/estoque')
 
 @app.route('/adicionar_produto')
@@ -206,7 +196,7 @@ def salvar_produto():
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         '''
         cursor.execute(comando, (id_produto, nome, marca, modelo, medida, tipo, qnt_atual, qnt_min, qnt_repor, valor_custo, valor_venda))
-        registrar_movimento(id_produto, nome, 'Entrada')
+        registrar_movimento(cursor, id_produto, nome, 'Entrada')
         conexao.commit()
         cursor.close()
         conexao.close()
@@ -231,8 +221,8 @@ def pesquisar_estoque():
     conexao.close()
     return render_template('estoque.html', produtos=resultados)
 
-@app.route('/historico_movimentacoes')
-def historico_movimentacoes():
+@app.route('/movimentacao')
+def movimentacao():
     if 'nome' not in session:
         return redirect('/')
     conexao = conectar_bd()
@@ -241,7 +231,7 @@ def historico_movimentacoes():
     movimentacoes = cursor.fetchall()
     cursor.close()
     conexao.close()
-    return render_template('historico_movimentacoes.html', movimentacoes=movimentacoes)
+    return render_template('movimentacao.html', movimentacao=movimentacoes)
 
 if __name__ == '__main__':
  app.run(debug=True)
